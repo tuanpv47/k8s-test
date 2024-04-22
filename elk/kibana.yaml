@@ -1,0 +1,31 @@
+# imageTag: 8.5.1
+
+resources:
+  requests:
+    cpu: 10m
+    memory: 768Mi
+  limits:
+    cpu: 1900m
+    memory: 1024Mi
+
+ingress:
+  enabled: false
+
+service:
+  type: NodePort
+  nodePort: 32666
+
+# Allows you to add any config files in /usr/share/kibana/config/
+kibanaConfig:
+  kibana.yml: |
+    ### default
+    server.host: "0.0.0.0"
+    server.shutdownTimeout: "5s"
+    elasticsearch.hosts: ["http://elasticsearch-master.logging.svc.cluster.local:9200"]
+    monitoring.ui.container.elasticsearch.enabled: true
+
+    ### custom
+    # from https://github.com/elastic/apm-server/issues/10361
+    xpack.fleet.packages:
+    - name: apm
+      version: 8.5.1
