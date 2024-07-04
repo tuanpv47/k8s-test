@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: opentelemetry-app
+  namespace: argocd
+spec:
+  destination:
+    namespace: default
+    name: in-cluster
+  project: appbundle
+  source:
+    repoURL: 'https://github.com/open-telemetry/opentelemetry-helm-charts.git'
+    path: charts/opentelemetry-demo
+    targetRevision: main
+    # helm:
+    #   parameters:
+    #     - name: persistence.enabled
+    #       value: 'true'
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
