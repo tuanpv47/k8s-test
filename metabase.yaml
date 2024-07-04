@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: metabase-app
+  namespace: argocd
+spec:
+  destination:
+    namespace: default
+    name: in-cluster
+  project: appbundle
+  source:
+    repoURL: 'https://github.com/helm/charts.git'
+    path: stable/metabase
+    targetRevision: master
+    # helm:
+    #   parameters:
+    #     - name: persistence.enabled
+    #       value: 'true'
+  syncPolicy:
+    syncOptions:
+    - CreateNamespace=true
