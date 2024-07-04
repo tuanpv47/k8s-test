@@ -1,0 +1,14 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: example-app
+  namespace: argocd
+spec:
+  destination:
+    namespace: example-app
+    name: in-cluster
+  project: appbundle
+  source:
+    path: ./
+    repoURL: https://github.com/tuanpv47/k8s-test.git
+    targetRevision: argocd-children-apps
